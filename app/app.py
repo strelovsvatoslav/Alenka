@@ -34,22 +34,13 @@ def generate_post(i):
 
 posts_list = sorted([generate_post(i) for i in range(5)], key=lambda p: p['date'], reverse=True)
 
+from flask import Flask, render_template_string
+
+app = Flask(__name__)
+
 @app.route('/')
 def index():
-    return render_template('index.html')
-
-@app.route('/posts')
-def posts():
-    return render_template('posts.html', title='Посты', posts=posts_list)
-
-@app.route('/posts/<int:index>')
-def post(index):
-    p = posts_list[index]
-    return render_template('post.html', title=p['title'], post=p)
-
-@app.route('/about')
-def about():
-    return render_template('about.html', title='Об авторе')
+    return render_template('otkrytka.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
